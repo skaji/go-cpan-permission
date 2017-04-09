@@ -1,0 +1,21 @@
+{
+    "memo": "9b790f1ee5a7d00ba22865957154f0e1b012efdaebce061c21df52bfb24ab85e",
+    "projects": [
+        {
+            "name": "github.com/go-yaml/yaml",
+            "branch": "v2",
+            "revision": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/skaji/go-table",
+            "branch": "master",
+            "revision": "42b8651bd99c382f1779d98c9fd74a760d78cd19",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}

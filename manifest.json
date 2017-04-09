@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "github.com/go-yaml/yaml": {
+            "branch": "v2"
+        },
+        "github.com/skaji/go-table": {
+            "branch": "master"
+        }
+    }
+}
