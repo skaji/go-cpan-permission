@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -9,22 +11,44 @@ import (
 	"github.com/skaji/go-table"
 )
 
+var (
+	asjson = flag.Bool("j", false, "json output")
+)
+
 func main() {
-	os.Exit(run(os.Args))
+	flag.Usage = func() {
+		fmt.Println("Usage: cpan-permission [-j] Module")
+	}
+	flag.Parse()
+	module := flag.Arg(0)
+	os.Exit(run(module))
 }
 
-func run(args []string) int {
-	if len(args) < 2 || args[1] == "-h" || args[1] == "--help" {
-		fmt.Println("Usage: cpan-permission MODULE")
+type jsonRes struct {
+	Distfile   string                        `json:"distfile"`
+	Permission []permission.PermissionResult `json:"permission"`
+}
+
+func run(module string) int {
+	if module == "" {
+		flag.Usage()
 		return 1
 	}
-
-	module := args[1]
 	p := permission.New()
 	distfile, result, err := p.Get(module)
 	if err != nil {
 		fmt.Println(err)
 		return 1
+	}
+
+	if *asjson {
+		b, err := json.MarshalIndent(jsonRes{Distfile: distfile, Permission: result}, "", "  ")
+		if err != nil {
+			fmt.Println(err)
+			return 1
+		}
+		fmt.Println(string(b))
+		return 0
 	}
 
 	t := table.New()
