@@ -30,9 +30,9 @@ func run(args []string) int {
 	t := table.New()
 	t.Add([]string{"module_name", "owner", "co_maintainers"})
 	for _, r := range result {
-		owner := r.Owner
-		if owner == "" {
-			owner = "N/A"
+		owner := "N/A"
+		if owner != "" {
+			owner = r.Owner
 		}
 		co := "N/A"
 		if len(r.CoMaintainers) > 0 {
