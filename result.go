@@ -6,16 +6,16 @@ type PermissionResult struct {
 	CoMaintainers []string `json:"co_maintainers"`
 }
 
-type PermissionResults []PermissionResult
+type permissionResults []PermissionResult
 
-func (p PermissionResults) Len() int {
+func (p permissionResults) Len() int {
 	return len(p)
 }
 
-func (p PermissionResults) Swap(i, j int) {
+func (p permissionResults) Swap(i, j int) {
 	p[i], p[j] = p[j], p[i]
 }
 
-func (p PermissionResults) Less(i, j int) bool {
+func (p permissionResults) Less(i, j int) bool {
 	return p[i].ModuleName < p[j].ModuleName
 }

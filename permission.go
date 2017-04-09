@@ -141,8 +141,10 @@ func (p *Permission) get(modules []string) ([]PermissionResult, error) {
 	}
 
 	hits := result.Hits.Hits
-	results := make(PermissionResults, 0, len(hits))
+	seen := make(map[string]struct{})
+	results := make(permissionResults, 0, len(hits))
 	for _, hit := range hits {
+		seen[hit.Source.ModuleName] = struct{}{}
 		co := hit.Source.CoMaintainers
 		sort.Strings(co)
 		p := PermissionResult{
@@ -151,6 +153,11 @@ func (p *Permission) get(modules []string) ([]PermissionResult, error) {
 			CoMaintainers: co,
 		}
 		results = append(results, p)
+	}
+	for _, module := range modules {
+		if _, ok := seen[module]; !ok {
+			results = append(results, PermissionResult{ModuleName: module})
+		}
 	}
 	sort.Sort(results)
 	return results, nil

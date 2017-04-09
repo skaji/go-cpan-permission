@@ -29,11 +29,15 @@ func run(args []string) int {
 
 	t := table.New()
 	for _, r := range result {
+		owner := r.Owner
+		if owner == "" {
+			owner = "N/A"
+		}
 		co := "N/A"
 		if len(r.CoMaintainers) > 0 {
 			co = strings.Join(r.CoMaintainers, ",")
 		}
-		t.Add([]string{r.ModuleName, r.Owner, co})
+		t.Add([]string{r.ModuleName, owner, co})
 	}
 	fmt.Print(distfile, "\n\n")
 	t.Render(os.Stdout)
