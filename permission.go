@@ -146,6 +146,9 @@ func (p *Permission) get(modules []string) ([]PermissionResult, error) {
 	for _, hit := range hits {
 		seen[hit.Source.ModuleName] = struct{}{}
 		co := hit.Source.CoMaintainers
+		if co == nil {
+			co = []string{}
+		}
 		sort.Strings(co)
 		p := PermissionResult{
 			Owner:         hit.Source.Owner,
