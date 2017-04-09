@@ -28,6 +28,7 @@ func run(args []string) int {
 	}
 
 	t := table.New()
+	t.Add([]string{"module_name", "owner", "co_maintainers"})
 	for _, r := range result {
 		owner := r.Owner
 		if owner == "" {
